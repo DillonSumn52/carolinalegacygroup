@@ -326,7 +326,7 @@ footer{background:#07101f;padding:52px 60px 34px;}
       <p class="hero-p a3">You've built something worth growing. Carolina Legacy Group partners with business owners across the Carolinas to sharpen strategy, strengthen operations, and create a deeper impact in the markets that matter most to them. We bring the experience — you keep the vision.</p>
       <div class="hero-btns a4">
         <a onclick="showPage('services')" class="btn-red">How We Help <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-        <a href="https://calendly.com/carolinalegacygroup" target="_blank" class="btn-ghost" style="display:inline-flex;align-items:center;gap:9px;">📅 Book a Free Strategy Call</a>
+        <a href="https://calendly.com/dillonsumn1/30min" target="_blank" class="btn-ghost" style="display:inline-flex;align-items:center;gap:9px;">📅 Book a Free Strategy Call</a>
       </div>
     </div>
     <div class="scroll-hint"><span>Scroll</span><div class="arrow-box"></div></div>
@@ -405,7 +405,7 @@ footer{background:#07101f;padding:52px 60px 34px;}
         <p style="font-size:14px;line-height:1.75;color:rgba(255,255,255,.5);max-width:520px;">No pitch, no pressure — just an honest conversation about your business, where you want to take it, and whether we're the right partner to help you get there.</p>
       </div>
       <div style="display:flex;flex-direction:column;gap:12px;align-items:center;flex-shrink:0;">
-        <a href="https://calendly.com/carolinalegacygroup" target="_blank" class="btn-red" style="white-space:nowrap;font-size:11px;">📅 Book a Free 30-Min Call</a>
+        <a href="https://calendly.com/dillonsumn1/30min" target="_blank" class="btn-red" style="white-space:nowrap;font-size:11px;">📅 Book a Free 30-Min Call</a>
         <span style="font-size:10px;color:rgba(255,255,255,.3);letter-spacing:.06em;">or</span>
         <a onclick="showPage('contact')" style="font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.45);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.2);padding-bottom:2px;cursor:pointer;transition:color .2s;" onmouseover="this.style.color='rgba(255,255,255,0.8)'" onmouseout="this.style.color='rgba(255,255,255,0.45)'">Send Us a Message Instead</a>
       </div>
@@ -964,37 +964,50 @@ triggerReveal();
 // ── CONTACT FORM ─────────────────────────────
 const contactForm = document.getElementById('contactForm');
 if (contactForm) {
-  contactForm.addEventListener('submit', async function(e) {
+  contactForm.addEventListener('submit', function(e) {
     e.preventDefault();
     const btn = document.getElementById('submitBtn');
     const success = document.getElementById('formSuccess');
     const error = document.getElementById('formError');
+
     btn.textContent = 'Sending...';
     btn.disabled = true;
     btn.style.opacity = '0.7';
-    try {
-      const response = await fetch(contactForm.action, {
-        method: 'POST',
-        body: new FormData(contactForm),
-        headers: { 'Accept': 'application/json' }
-      });
-      if (response.ok) {
-        success.style.display = 'block';
-        error.style.display = 'none';
-        contactForm.reset();
-        btn.textContent = '✓ Sent!';
-        btn.style.background = '#15803d';
-        btn.style.opacity = '1';
-      } else {
-        throw new Error('Form submission failed');
-      }
-    } catch(err) {
+    success.style.display = 'none';
+    error.style.display = 'none';
+
+    // Collect form data
+    const data = {
+      first_name: contactForm.querySelector('[name="first_name"]').value,
+      last_name:  contactForm.querySelector('[name="last_name"]').value,
+      email:      contactForm.querySelector('[name="email"]').value,
+      phone:      contactForm.querySelector('[name="phone"]').value,
+      interest:   contactForm.querySelector('[name="interest"]').value,
+      message:    contactForm.querySelector('[name="message"]').value
+    };
+
+    // Use no-cors mode to avoid CORS block with Google Apps Script
+    fetch(contactForm.action, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    })
+    .then(function() {
+      // no-cors returns opaque response so we assume success if no error thrown
+      success.style.display = 'block';
+      contactForm.reset();
+      btn.textContent = '✓ Sent!';
+      btn.style.background = '#15803d';
+      btn.style.opacity = '1';
+      btn.disabled = false;
+    })
+    .catch(function() {
       error.style.display = 'block';
-      success.style.display = 'none';
       btn.textContent = 'Send Message →';
       btn.disabled = false;
       btn.style.opacity = '1';
-    }
+    });
   });
 }
 
