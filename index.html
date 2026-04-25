@@ -286,6 +286,189 @@ footer{background:#07101f;padding:52px 60px 34px;}
 .csub{margin-top:4px;padding:14px;background:var(--red);color:#fff;border:none;cursor:pointer;font-family:'Raleway',sans-serif;font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;border-radius:2px;transition:background .2s,transform .2s;width:100%;}
 .csub:hover{background:var(--red-dark);transform:translateY(-2px);}
 .map-strip{background:var(--navy-dark);height:300px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+
+/* ═══════════════════════════════
+   MOBILE RESPONSIVE — ALL PAGES
+═══════════════════════════════ */
+@media (max-width: 768px) {
+
+  /* ── NAVBAR ── */
+  #navbar { padding: 0 20px; height: 68px; }
+  .nav-logo-img { height: 42px; }
+  .brand-name-top { font-size: 16px; }
+  .brand-name-sub { font-size: 7px; }
+  .nav-links { display: none; }
+
+  /* Mobile hamburger menu */
+  .nav-mobile-toggle {
+    display: flex; flex-direction: column; gap: 5px;
+    cursor: pointer; padding: 8px; z-index: 1001;
+  }
+  .nav-mobile-toggle span {
+    display: block; width: 24px; height: 2px;
+    background: #fff; border-radius: 2px;
+    transition: all 0.3s;
+  }
+  .nav-mobile-menu {
+    display: none; position: fixed;
+    top: 68px; left: 0; right: 0;
+    background: rgba(13,31,60,0.98);
+    backdrop-filter: blur(16px);
+    padding: 20px 24px 28px;
+    z-index: 999; flex-direction: column; gap: 4px;
+    border-bottom: 2px solid var(--red);
+  }
+  .nav-mobile-menu.open { display: flex; }
+  .nav-mobile-menu a {
+    display: block; padding: 13px 16px;
+    font-size: 12px; font-weight: 700;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: rgba(255,255,255,0.75);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    transition: color 0.2s;
+  }
+  .nav-mobile-menu a:hover { color: #fff; }
+  .nav-mobile-menu .mob-cta {
+    margin-top: 10px;
+    background: var(--red); color: #fff !important;
+    border-radius: 2px; text-align: center;
+    border-bottom: none !important;
+  }
+
+  /* ── HERO ── */
+  #hero { min-height: 100vh; }
+  .hero-content { padding: 0 24px; }
+  .hero-h1 { font-size: clamp(38px, 10vw, 56px); margin-bottom: 18px; }
+  .hero-p { font-size: 14.5px; margin-bottom: 32px; }
+  .hero-btns { flex-direction: column; gap: 12px; align-items: flex-start; }
+  .btn-red, .btn-ghost { padding: 13px 28px; font-size: 10px; width: 100%; justify-content: center; }
+  .scroll-hint { display: none; }
+
+  /* ── STATS BAR ── */
+  .stats-row { grid-template-columns: 1fr 1fr; }
+  .stat { padding: 24px 20px; }
+  .stat-n { font-size: 32px; }
+  .stat-n sup { font-size: 16px; }
+  .stat-l { font-size: 8.5px; }
+
+  /* ── HOME ABOUT ── */
+  .h-about { padding: 64px 0; }
+  .h-about-grid { grid-template-columns: 1fr; gap: 52px; padding: 0 24px; }
+  .ha-frame { padding-bottom: 85%; }
+  .ha-badge { width: 108px; height: 108px; bottom: -12px; right: -12px; }
+  .ha-badge .bn { font-size: 28px; }
+
+  /* ── BOOKING STRIP ── */
+  #navbar + div + div,
+  .h-about + div { padding: 44px 24px; }
+  [style*="grid-template-columns:1fr auto"] {
+    display: flex !important; flex-direction: column !important; gap: 28px !important;
+  }
+
+  /* ── HOME SERVICES ── */
+  .h-services { padding: 64px 0; }
+  .hs-inner { padding: 0 24px; }
+  .hs-head { flex-direction: column; gap: 24px; align-items: flex-start; margin-bottom: 36px; }
+  .hs-grid { grid-template-columns: 1fr; }
+  .svc { padding: 28px 24px; }
+
+  /* ── HOME LISTING / MISSION ── */
+  .home-listing { padding: 64px 0; }
+  .hl-inner { padding: 0 24px; }
+  .hl-head { flex-direction: column; gap: 20px; align-items: flex-start; margin-bottom: 32px; }
+  .hl-grid { grid-template-columns: 1fr; }
+  .l-card.feat { grid-column: span 1; }
+  .l-card.feat .l-img { height: 220px; }
+  .h-mission { padding: 64px 0; }
+  .hm-wrap { padding: 0 24px; }
+  .qm { font-size: 64px; }
+  .hm-q { font-size: clamp(17px, 4.5vw, 22px); }
+
+  /* ── PAGE HERO ── */
+  .page-hero-inner { padding: 56px 24px 64px; }
+  .ph-title { font-size: clamp(34px, 8vw, 52px); }
+  .ph-sub { font-size: 14.5px; }
+
+  /* ── ABOUT PAGE ── */
+  .abt-grid { grid-template-columns: 1fr; gap: 52px; padding: 64px 24px; }
+  .abt-frame { padding-bottom: 85%; }
+  .abt-badge { width: 108px; height: 108px; }
+  .values-sec { padding: 64px 0; }
+  .val-inner { padding: 0 24px; }
+  .val-grid { grid-template-columns: 1fr; }
+  .timeline-sec { padding: 64px 0; }
+  .tl-inner { padding: 0 24px; }
+  .timeline::before { left: 12px; }
+  .tl-item { grid-template-columns: 1fr; gap: 8px; padding-left: 36px; }
+  .tl-item:nth-child(odd) .tl-body { text-align: left; grid-column: 1; }
+  .tl-item:nth-child(even) .tl-body { grid-column: 1; }
+  .tl-item:nth-child(even) .tl-yr { grid-column: 1; grid-row: auto; text-align: left; }
+  .tl-dot { left: 12px; }
+  .tl-yr { display: none; }
+
+  /* ── SERVICES PAGE ── */
+  .svc-intro-sec { padding: 64px 0; }
+  .svc-intro-inner { grid-template-columns: 1fr; gap: 40px; padding: 0 24px; }
+  .svc-stat-grid { grid-template-columns: 1fr 1fr; }
+  .svc-cards-sec { padding: 64px 0; }
+  .sc-inner { padding: 0 24px; }
+  .sc-card { grid-template-columns: 1fr; }
+  .sc-left { flex-direction: row; padding: 20px 24px; justify-content: flex-start; gap: 16px; }
+  .sc-right { padding: 24px; }
+  .sc-right h3 { font-size: 18px; }
+  .process-sec { padding: 64px 0; }
+  .proc-inner { padding: 0 24px; }
+  .proc-steps { grid-template-columns: 1fr 1fr; }
+  .ps-arrow { display: none; }
+  .ps { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.07); padding: 24px 20px; }
+
+  /* ── TEAM PAGE ── */
+  [style*="max-width:980px"] { padding: 64px 24px !important; }
+  [style*="grid-template-columns:repeat(3,1fr)"] { grid-template-columns: 1fr !important; }
+  .join-ban { padding: 64px 24px; }
+
+  /* ── VETERAN SECTION ── */
+  [style*="grid-template-columns:auto 1fr"] {
+    grid-template-columns: 1fr !important;
+    text-align: center;
+    padding: 48px 24px !important;
+  }
+
+  /* ── CONTACT PAGE ── */
+  .contact-wrap { grid-template-columns: 1fr; gap: 48px; padding: 64px 24px; }
+  .cform-box { padding: 28px 20px; }
+  .frow { grid-template-columns: 1fr; }
+  .map-strip { height: 220px; }
+
+  /* ── FOOTER ── */
+  footer { padding: 48px 24px 28px; }
+  .footer-grid { grid-template-columns: 1fr; gap: 36px; }
+  .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+  .fb-p { max-width: 100%; }
+
+  /* ── BUTTONS full width on mobile ── */
+  .btn-navy { width: 100%; justify-content: center; }
+
+  /* ── S-TITLE sizing ── */
+  .s-title { font-size: clamp(26px, 6vw, 38px); }
+
+  /* ── Booking strip ── */
+  [style*="padding:52px 60px"] { padding: 44px 24px !important; }
+}
+
+@media (max-width: 480px) {
+  .stats-row { grid-template-columns: 1fr; }
+  .proc-steps { grid-template-columns: 1fr; }
+  .svc-stat-grid { grid-template-columns: 1fr 1fr; }
+  .hero-h1 { font-size: clamp(32px, 9vw, 44px); }
+  .sc-tags { gap: 5px; }
+  .sc-tag { font-size: 9px; padding: 3px 9px; }
+}
+
+.nav-mobile-toggle { display: none; }
+@media (max-width: 768px) {
+  .nav-mobile-toggle { display: flex; }
+}
 </style>
 </head>
 <body>
@@ -299,6 +482,18 @@ footer{background:#07101f;padding:52px 60px 34px;}
       <span class="brand-name-sub">Legacy Group</span>
     </div>
 
+  </div>
+  <!-- Mobile toggle -->
+  <div class="nav-mobile-toggle" id="mobileToggle" onclick="toggleMobileMenu()">
+    <span></span><span></span><span></span>
+  </div>
+  <!-- Mobile menu -->
+  <div class="nav-mobile-menu" id="mobileMenu">
+    <a onclick="showPage('home');closeMobileMenu()">Home</a>
+    <a onclick="showPage('about');closeMobileMenu()">About</a>
+    <a onclick="showPage('services');closeMobileMenu()">Services</a>
+    <a onclick="showPage('team');closeMobileMenu()">Team</a>
+    <a onclick="showPage('contact');closeMobileMenu()" class="mob-cta">Contact Us</a>
   </div>
   <ul class="nav-links">
     <li><a onclick="showPage('home')" class="active" id="nav-home">Home</a></li>
@@ -1010,6 +1205,24 @@ if (contactForm) {
     });
   });
 }
+
+
+// ── MOBILE MENU ──────────────────────────────
+function toggleMobileMenu() {
+  const menu = document.getElementById('mobileMenu');
+  menu.classList.toggle('open');
+}
+function closeMobileMenu() {
+  document.getElementById('mobileMenu').classList.remove('open');
+}
+// Close menu on outside click
+document.addEventListener('click', function(e) {
+  const menu = document.getElementById('mobileMenu');
+  const toggle = document.getElementById('mobileToggle');
+  if (menu && toggle && !menu.contains(e.target) && !toggle.contains(e.target)) {
+    menu.classList.remove('open');
+  }
+});
 
 // ── FILTER BUTTONS ───────────────────────────
 document.querySelectorAll('.filter-btn').forEach(btn => {
