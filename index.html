@@ -689,8 +689,7 @@ footer{background:#07101f;padding:52px 60px 34px;}
         <p class="s-body" style="margin-top:14px;">What separates us from traditional consultants is that we're also operators. We own and run businesses ourselves — across real estate, construction, media, and experiential spaces. That means every recommendation we make is grounded in what actually works in the real world, not just on paper.</p>
         <p class="s-body" style="margin-top:14px;">Today we serve clients across Greenville and the Carolinas — helping businesses in a wide range of industries sharpen their operations, scale their revenue, and build a deeper, more durable presence in the markets they care about most.</p>
         <div style="margin-top:28px;display:flex;gap:12px;flex-wrap:wrap;">
-          <a onclick="showPage('team')" class="btn-red">Meet Our Team</a>
-          <a onclick="showPage('contact')" class="btn-navy">Get In Touch</a>
+          <a onclick="showPage('contact')" class="btn-red">Get In Touch</a>
         </div>
       </div>
     </div>
@@ -824,79 +823,307 @@ footer{background:#07101f;padding:52px 60px 34px;}
      PAGE: SERVICES
 ══════════════════════════════════════════ -->
 <div id="page-services" class="page">
+
   <div class="page-hero">
     <div class="page-hero-inner">
       <div class="ph-eyebrow"><span>Services</span></div>
-      <h1 class="ph-title">Consult. Scale.<br><em>Dominate Your Market.</em></h1>
-      <p class="ph-sub">From real estate to operating businesses and purpose-built spaces — we provide the operational infrastructure that makes ownership genuinely passive.</p>
+      <h1 class="ph-title">What We Do.<br><em>How We Help.</em></h1>
+      <p class="ph-sub">Six areas of focus. Click any service to see what's included. Ready to talk? We'll put together the right combination for your business.</p>
     </div>
   </div>
 
-  <section class="svc-intro-sec">
-    <div class="svc-intro-inner">
-      <div class="reveal">
-        <div class="eyebrow"><span>Our Approach</span></div>
-        <h2 class="s-title" style="margin-bottom:18px;">One Firm.<br><em>Every Need.</em></h2>
-        <p class="s-body">Most consultants hand you a strategy deck and move on. We stay in it. From the first conversation to the moment your business hits its next milestone, we're working alongside you — in the weeds, on the whiteboard, and everywhere in between.</p>
-      </div>
-      <div class="svc-stat-grid reveal">
-        <div class="svc-stat-box"><div class="ssn">5</div><div class="ssl">Core Services</div></div>
-        <div class="svc-stat-box"><div class="ssn">60+</div><div class="ssl">Professionals</div></div>
-        <div class="svc-stat-box"><div class="ssn">98%</div><div class="ssl">Occupancy Rate</div></div>
-        <div class="svc-stat-box"><div class="ssn">2</div><div class="ssl">Core Markets</div></div>
-      </div>
-    </div>
-  </section>
+  <style>
+    .svc-list { max-width: 860px; margin: 0 auto; padding: 72px 40px 80px; }
+    .svc-category-block { margin-bottom: 10px; }
+    .svc-category-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 22px 28px; background: #1C3664; cursor: pointer;
+      user-select: none; transition: background .2s;
+    }
+    .svc-category-header:hover { background: #162b52; }
+    .svc-category-header.open { background: #C8102E; }
+    .svc-cat-left { display: flex; align-items: center; gap: 16px; }
+    .svc-cat-emoji { font-size: 20px; line-height: 1; }
+    .svc-cat-name {
+      font-family: 'Playfair Display', serif; font-size: 18px;
+      font-weight: 700; color: #fff; letter-spacing: .01em;
+    }
+    .svc-cat-sub {
+      font-size: 11px; font-weight: 700; letter-spacing: .12em;
+      text-transform: uppercase; color: rgba(255,255,255,.45);
+      margin-top: 2px;
+    }
+    .svc-chevron {
+      width: 28px; height: 28px; border-radius: 50%;
+      border: 1.5px solid rgba(255,255,255,.25);
+      display: flex; align-items: center; justify-content: center;
+      transition: transform .3s; flex-shrink: 0;
+    }
+    .svc-chevron svg { display: block; }
+    .svc-category-header.open .svc-chevron { transform: rotate(180deg); }
+    .svc-body {
+      display: none; background: #F5F0E8;
+      border-left: 3px solid #C8102E; padding: 28px 28px 24px;
+    }
+    .svc-body.open { display: block; }
+    .svc-body-desc {
+      font-size: 15px; line-height: 1.8; color: #2a2a2a;
+      margin-bottom: 20px; max-width: 640px;
+    }
+    .svc-items { display: flex; flex-direction: column; gap: 0; }
+    .svc-item {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 11px 0; border-bottom: 1px solid rgba(28,54,100,.1);
+    }
+    .svc-item:last-child { border-bottom: none; }
+    .svc-item-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: #C8102E; flex-shrink: 0; margin-top: 8px;
+    }
+    .svc-item-name {
+      font-size: 14px; font-weight: 700; color: #1C3664;
+      font-family: 'Raleway', sans-serif; letter-spacing: .02em;
+    }
+    .svc-item-desc {
+      font-size: 13px; color: #555; line-height: 1.6; margin-top: 2px;
+    }
+    .svc-body-cta {
+      margin-top: 22px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .svc-cta-link {
+      font-size: 12px; font-weight: 800; letter-spacing: .1em;
+      text-transform: uppercase; color: #C8102E; cursor: pointer;
+      text-decoration: none; border-bottom: 1.5px solid #C8102E;
+      padding-bottom: 1px; transition: opacity .2s;
+    }
+    .svc-cta-link:hover { opacity: .7; }
+    @media (max-width: 640px) {
+      .svc-list { padding: 48px 20px 60px; }
+      .svc-category-header { padding: 18px 20px; }
+      .svc-body { padding: 22px 20px 18px; }
+      .svc-cat-name { font-size: 16px; }
+    }
+  </style>
 
-  <section class="svc-cards-sec">
-    <div class="sc-inner">
-      <div class="reveal" style="margin-bottom:46px;">
-        <div class="eyebrow"><span>What We Offer</span></div>
-        <h2 class="s-title">All <em>Services</em></h2>
-      </div>
-      <div class="sc-card reveal">
-        <div class="sc-left"><span class="si">🏘️</span><div class="sn">01</div></div>
-        <div class="sc-right"><h3>Growth Strategy &amp; Execution</h3><p>We build tailored growth strategies for businesses ready to scale — analyzing your market, competitive position, and operational capacity to identify the highest-leverage opportunities. Then we stay in the engagement and help you execute, because strategy without execution is just a document.</p><div class="sc-tags"><span class="sc-tag">Market Development</span><span class="sc-tag">Revenue Modeling</span><span class="sc-tag">Competitive Analysis</span><span class="sc-tag">Growth Roadmapping</span><span class="sc-tag">KPI Frameworks</span></div></div>
-      </div>
-      <div class="sc-card reveal">
-        <div class="sc-left"><span class="si">🔑</span><div class="sn">02</div></div>
-        <div class="sc-right"><h3>Operational Consulting</h3><p>We embed within your business to identify what's creating drag — inefficient processes, unclear roles, weak systems, or misaligned priorities — and we rebuild the operational foundation that allows your team to move faster and your business to scale without breaking down.</p><div class="sc-tags"><span class="sc-tag">Process Optimization</span><span class="sc-tag">Team Structure</span><span class="sc-tag">SOPs &amp; Systems</span><span class="sc-tag">Performance Dashboards</span><span class="sc-tag">Workflow Automation</span></div></div>
-      </div>
-      <div class="sc-card reveal">
-        <div class="sc-left"><span class="si">💼</span><div class="sn">03</div></div>
-        <div class="sc-right"><h3>Market Positioning &amp; Revenue Growth</h3><p>We help businesses define their unique position in the market, sharpen their message, and build the channels and partnerships needed to deepen their impact and grow their revenue. Whether you're trying to break into a new segment or dominate the one you're already in, we build the plan and execute it with you.</p><div class="sc-tags"><span class="sc-tag">Inbound Lead Systems</span><span class="sc-tag">Brand Positioning</span><span class="sc-tag">Market Penetration</span><span class="sc-tag">Partnership Development</span><span class="sc-tag">Customer Acquisition</span></div></div>
-      </div>
-      <div class="sc-card reveal">
-        <div class="sc-left"><span class="si">🏢</span><div class="sn">04</div></div>
-        <div class="sc-right"><h3>Experiential Space Consulting</h3><p>We consult with and operate experience-driven businesses and spaces — helping them build the systems, staffing models, and revenue strategies that turn a great concept into a consistently profitable operation.</p><div class="sc-tags"><span class="sc-tag">Website Implementation</span><span class="sc-tag">Booking Systems</span><span class="sc-tag">Revenue Optimization</span><span class="sc-tag">Digital Presence</span><span class="sc-tag">Client Journey Mapping</span></div></div>
-      </div>
-      <div class="sc-card reveal">
-        <div class="sc-left"><span class="si">🔍</span><div class="sn">05</div></div>
-        <div class="sc-right"><h3>Research &amp; Advisory</h3><p>Before we operate anything, we understand it deeply. Our advisory team provides hyper-local intelligence on the Greenville and Columbia markets — asset performance analysis, demand studies, and strategic recommendations whether you're evaluating a property, a business, or a space in either market.</p><div class="sc-tags"><span class="sc-tag">Real Estate</span><span class="sc-tag">Construction</span><span class="sc-tag">Media &amp; Publishing</span><span class="sc-tag">Lawn Care</span><span class="sc-tag">Pest Control</span></div></div>
-      </div>
-    </div>
-  </section>
+  <div style="background: var(--cream, #F5F0E8);">
+    <div class="svc-list">
 
-  <section class="process-sec">
+      <!-- 1. Digital Presence -->
+      <div class="svc-category-block">
+        <div class="svc-category-header" onclick="toggleSvc(this)">
+          <div class="svc-cat-left">
+            <span class="svc-cat-emoji">&#127760;</span>
+            <div>
+              <div class="svc-cat-name">Digital Presence</div>
+              <div class="svc-cat-sub">Websites &middot; Google &middot; SEO &middot; Reviews</div>
+            </div>
+          </div>
+          <div class="svc-chevron"><svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+        <div class="svc-body">
+          <p class="svc-body-desc">If customers can't find you online, they're calling your competitor. We build the digital foundation that puts your business in front of people already looking for what you offer.</p>
+          <div class="svc-items">
+            <div class="svc-item"><div class="svc-item-dot"></div><div><div class="svc-item-name">Custom Website Build</div><div class="svc-item-desc">Professional, mobile-ready site with contact form, Google Maps, and click-to-call.</div></div></div>
+            <div class="svc-item"><div class="svc-item-dot"></div><div><div class="svc-item-name">Google Business Profile Setup</div><div class="svc-item-desc">Full GBP configuration with photos, hours, and an immediate review push.</div></div></div>
+            <div class="svc-item"><div class="svc-item-dot"></div><div><div class="svc-item-name">Lead Capture System</div><div class="svc-item-desc">Contact form, auto-responder, and CRM pipeline so no lead falls through the cracks.</div></div></div>
+            <div class="svc-item"><div class="svc-item-dot"></div><div><div class="svc-item-name">Review Generation System</div><div class="svc-item-desc">Automated follow-up sequence that asks for Google reviews after every job.</div></div></div>
+            <div class="svc-item"><div class="svc-item-dot"></div><div><div class="svc-item-name">Monthly Digital Management</div><div class="svc-item-desc">Ongoing site updates, GBP posts, review monitoring, and a monthly performance report.</div></div></div>
+          </div>
+          <div class="svc-body-cta"><span class="svc-cta-link" onclick="showPage('contact')">Get a Quote &rarr;</span></div>
+        </div>
+      </div>
+
+      <!-- 2. AI-Powered Tools -->
+      <div class="svc-category-block">
+        <div class="svc-category-header" onclick="toggleSvc(this)">
+          <div class="svc-cat-left">
+            <span class="svc-cat-emoji">&#129302;</span>
+            <div>
+              <div class="svc-cat-name">AI-Powered Tools</div>
+              <div class="svc-cat-sub">Quotes &middot; Follow-Up &middot; Content &middot; Handbooks</div>
+            </div>
+          </div>
+          <div class="svc-chevron"><svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+        <div class="svc-body">
+          <p class="svc-body-desc">Standalone AI tools built specifically for your business. No extra subscriptions or logins for your team — CLG builds it, you own it, it runs itself.</p>
+          <div class="svc-items">
+            <div class="svc-item"><div class="svc-item-dot"></div><div><div class="svc-item-name">Quote &amp; Estimate Generator</div><div class="svc-item-desc">Describe the job, get a professional written quote in 60 seconds.</div></div></div>
+            <div class="svc-item"><div class="svc-item-dot"></div><div><div class="svc-item-name">Customer Follow-Up System</div><div class="svc-item-desc">AI drafts a personalized follow-up after every job. You approve in one tap.</div></div></div>
+            <div class="svc-item"><div class="svc-item-dot"></div><div><div class="svc-item-name">Social Media Content Engine</div><div class="svc-item-desc">Weekly batch of Facebook and Instagram posts drafted by AI — you pick and post.</div></div></div>
+            <div class="svc-item"><div class="svc-item-dot"></div><div><div class="svc-item-name">Review &amp; Complaint Handler</div><div class="svc-item-desc">Paste a negative review, get three professional response options instantly.</div></div></div>
+            <div class="svc-item"><div class="svc-item-dot"></div><div><div class="svc-item-name">Employee Handbook Builder</div><div class="svc-item-desc">CLG interviews you, AI builds a complete written handbook ready for day-one hires.</div></div></div>
+          </div>
+          <div class="svc-body-cta"><span class="svc-cta-link" onclick="showPage('contact')">Get a Quote &rarr;</span></div>
+        </div>
+      </div>
+
+      <!-- 3. Operations -->
+      <div class="svc-category-block">
+        <div class="svc-category-header" onclick="toggleSvc(this)">
+          <div class="svc-cat-left">
+            <span class="svc-cat-emoji">&#9881;&#65039;</span>
+            <div>
+              <div class="svc-cat-name">Operations &amp; Workflow</div>
+              <div class="svc-cat-sub">SOPs &middot; Onboarding &middot; Dashboards &middot; Automation</div>
+            </div>
+          </div>
+          <div class="svc-chevron"><svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+        <div class="svc-body">
+          <p class="svc-body-desc">Build a business that runs without everything depending on you. Systems, SOPs, and automation that let you scale without burning out.</p>
+          <div class="svc-items">
+            <div class="svc-item"><div class="svc-item-dot"></div><div><div class="svc-item-name">SOP Library Build-Out</div><div class="svc-item-desc">Step-by-step SOPs for every key process — written, organized, and ready to use.</div></div></div>
+            <div class="svc-item"><div class="svc-item-dot"></div><div><div class="svc-item-name">Employee Onboarding System</div><div class="svc-item-desc">Day 1–30 checklist, training materials, and expectations doc ready before hire day.</div></div></div>
+            <div class="svc-item"><div class="svc-item-dot"></div><div><div class="svc-item-name">Daily Operations Dashboard</div><div class="svc-item-desc">Daily checklists, KPI tracking, and end-of-day reporting your team can actually use.</div></div></div>
+            <div class="svc-item"><div class="svc-item-dot"></div><div><div class="svc-item-name">Recurring Task Automation</div><div class="svc-item-desc">Automate invoice reminders, appointment confirmations, and weekly reports.</div></div></div>
+            <div class="svc-item"><div class="svc-item-dot"></div><div><div class="svc-item-name">Monthly Ops Retainer</div><div class="svc-item-desc">CLG as your fractional operations manager — fixing bottlenecks as you grow.</div></div></div>
+          </div>
+          <div class="svc-body-cta"><span class="svc-cta-link" onclick="showPage('contact')">Get a Quote &rarr;</span></div>
+        </div>
+      </div>
+
+      <!-- 4. Sales & Revenue -->
+      <div class="svc-category-block">
+        <div class="svc-category-header" onclick="toggleSvc(this)">
+          <div class="svc-cat-left">
+            <span class="svc-cat-emoji">&#128200;</span>
+            <div>
+              <div class="svc-cat-name">Sales &amp; Revenue Systems</div>
+              <div class="svc-cat-sub">CRM &middot; Pricing &middot; Proposals &middot; Follow-Up</div>
+            </div>
+          </div>
+          <div class="svc-chevron"><svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+        <div class="svc-body">
+          <p class="svc-body-desc">Tools and strategies that turn more leads into paying customers — and increase what each customer spends.</p>
+          <div class="svc-items">
+            <div class="svc-item"><div class="svc-item-dot"></div><div><div class="svc-item-name">CRM Setup &amp; Training</div><div class="svc-item-desc">Full CRM configuration with pipelines and tags — plus a hands-on walkthrough.</div></div></div>
+            <div class="svc-item"><div class="svc-item-dot"></div><div><div class="svc-item-name">Pricing &amp; Packaging Audit</div><div class="svc-item-desc">Market research and a written recommendation for what to charge.</div></div></div>
+            <div class="svc-item"><div class="svc-item-dot"></div><div><div class="svc-item-name">Upsell Script Builder</div><div class="svc-item-desc">A natural, tested verbal script for offering add-ons at point of service.</div></div></div>
+            <div class="svc-item"><div class="svc-item-dot"></div><div><div class="svc-item-name">Proposal &amp; Contract Templates</div><div class="svc-item-desc">Professional agreements built for your industry and ready to send same day.</div></div></div>
+            <div class="svc-item"><div class="svc-item-dot"></div><div><div class="svc-item-name">Lead Follow-Up Sequence</div><div class="svc-item-desc">5-touch email and text sequence that automatically nurtures leads who didn't book.</div></div></div>
+          </div>
+          <div class="svc-body-cta"><span class="svc-cta-link" onclick="showPage('contact')">Get a Quote &rarr;</span></div>
+        </div>
+      </div>
+
+      <!-- 5. People & HR -->
+      <div class="svc-category-block">
+        <div class="svc-category-header" onclick="toggleSvc(this)">
+          <div class="svc-cat-left">
+            <span class="svc-cat-emoji">&#128101;</span>
+            <div>
+              <div class="svc-cat-name">People &amp; HR Systems</div>
+              <div class="svc-cat-sub">Hiring &middot; Reviews &middot; Compensation &middot; Culture</div>
+            </div>
+          </div>
+          <div class="svc-chevron"><svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+        <div class="svc-body">
+          <p class="svc-body-desc">Hire the right people, keep them, and build a team that performs without constant hand-holding.</p>
+          <div class="svc-items">
+            <div class="svc-item"><div class="svc-item-dot"></div><div><div class="svc-item-name">Hiring System Build</div><div class="svc-item-desc">Job posting templates, interview rubric, and offer letter — ready to hire with confidence.</div></div></div>
+            <div class="svc-item"><div class="svc-item-dot"></div><div><div class="svc-item-name">Performance Review System</div><div class="svc-item-desc">Quarterly review forms and feedback templates. Simple at two people, scalable to twenty.</div></div></div>
+            <div class="svc-item"><div class="svc-item-dot"></div><div><div class="svc-item-name">Team Communication Playbook</div><div class="svc-item-desc">Written guide covering meetings, updates, expectations, and accountability.</div></div></div>
+            <div class="svc-item"><div class="svc-item-dot"></div><div><div class="svc-item-name">Compensation Structure Audit</div><div class="svc-item-desc">Market-rate analysis and a path toward performance-based pay.</div></div></div>
+            <div class="svc-item"><div class="svc-item-dot"></div><div><div class="svc-item-name">Job Posting Service</div><div class="svc-item-desc">AI-written, optimized postings for any role with 30 days of applicant tracking.</div></div></div>
+          </div>
+          <div class="svc-body-cta"><span class="svc-cta-link" onclick="showPage('contact')">Get a Quote &rarr;</span></div>
+        </div>
+      </div>
+
+      <!-- 6. Financial Clarity -->
+      <div class="svc-category-block">
+        <div class="svc-category-header" onclick="toggleSvc(this)">
+          <div class="svc-cat-left">
+            <span class="svc-cat-emoji">&#128176;</span>
+            <div>
+              <div class="svc-cat-name">Financial Clarity &amp; Reporting</div>
+              <div class="svc-cat-sub">KPIs &middot; Cash Flow &middot; Margins &middot; Invoicing</div>
+            </div>
+          </div>
+          <div class="svc-chevron"><svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+        <div class="svc-body">
+          <p class="svc-body-desc">Understand where your money goes and where the opportunities are — built for owners who want clarity without a spreadsheet degree.</p>
+          <div class="svc-items">
+            <div class="svc-item"><div class="svc-item-dot"></div><div><div class="svc-item-name">Monthly KPI Dashboard</div><div class="svc-item-desc">Revenue, job count, average ticket, and margin — tracked and reviewed monthly.</div></div></div>
+            <div class="svc-item"><div class="svc-item-dot"></div><div><div class="svc-item-name">Cash Flow Projection</div><div class="svc-item-desc">90-day rolling model that shows you when cash gets tight before it becomes a crisis.</div></div></div>
+            <div class="svc-item"><div class="svc-item-dot"></div><div><div class="svc-item-name">Service Profitability Audit</div><div class="svc-item-desc">Analyzes which services actually make money — written findings and clear recommendations.</div></div></div>
+            <div class="svc-item"><div class="svc-item-dot"></div><div><div class="svc-item-name">Invoice &amp; Payment System</div><div class="svc-item-desc">Full invoicing setup with automated payment reminders. No more chasing checks.</div></div></div>
+            <div class="svc-item"><div class="svc-item-dot"></div><div><div class="svc-item-name">Monthly Financial Advisory</div><div class="svc-item-desc">Monthly call reviewing numbers, flagging issues early, and setting 30-day targets.</div></div></div>
+          </div>
+          <div class="svc-body-cta"><span class="svc-cta-link" onclick="showPage('contact')">Get a Quote &rarr;</span></div>
+        </div>
+      </div>
+
+    </div><!-- end svc-list -->
+  </div>
+
+  <!-- ADVISORY TIERS -->
+  <div class="process-sec">
     <div class="proc-inner">
-      <div class="reveal">
-        <div class="eyebrow"><span>How It Works</span></div>
-        <h2 class="s-title" style="color:#fff;">Our <em>Process</em></h2>
+      <div class="eyebrow" style="justify-content:center;"><span>Advisory Packages</span></div>
+      <h2 class="s-title" style="color:#fff;text-align:center;margin-bottom:3rem;">Ongoing advisory<br><em>for businesses built to grow.</em></h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:2px;background:rgba(255,255,255,.07);">
+        <div style="background:#0d1e35;padding:2.5rem 2rem;">
+          <div style="font-size:9px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:.75rem;">Starter</div>
+          <div style="font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:#fff;margin-bottom:1.5rem;line-height:1.2;">Focused &amp;<br>Actionable</div>
+          <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;">
+            <li style="font-size:13px;color:rgba(255,255,255,.55);padding:8px 0;border-bottom:1px solid rgba(255,255,255,.06);display:flex;gap:8px;"><span style="color:#C8102E;flex-shrink:0;">&#8594;</span>2 strategy sessions per month</li>
+            <li style="font-size:13px;color:rgba(255,255,255,.55);padding:8px 0;border-bottom:1px solid rgba(255,255,255,.06);display:flex;gap:8px;"><span style="color:#C8102E;flex-shrink:0;">&#8594;</span>KPI tracking dashboard</li>
+            <li style="font-size:13px;color:rgba(255,255,255,.55);padding:8px 0;border-bottom:1px solid rgba(255,255,255,.06);display:flex;gap:8px;"><span style="color:#C8102E;flex-shrink:0;">&#8594;</span>Unlimited async support</li>
+            <li style="font-size:13px;color:rgba(255,255,255,.55);padding:8px 0;display:flex;gap:8px;"><span style="color:#C8102E;flex-shrink:0;">&#8594;</span>Monthly written report</li>
+          </ul>
+        </div>
+        <div style="background:#C8102E;padding:2.5rem 2rem;">
+          <div style="font-size:9px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.7);margin-bottom:.75rem;">Most Popular</div>
+          <div style="font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:#fff;margin-bottom:1.5rem;line-height:1.2;">Full<br>Engagement</div>
+          <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;">
+            <li style="font-size:13px;color:rgba(255,255,255,.85);padding:8px 0;border-bottom:1px solid rgba(255,255,255,.15);display:flex;gap:8px;"><span style="flex-shrink:0;">&#8594;</span>Weekly working sessions</li>
+            <li style="font-size:13px;color:rgba(255,255,255,.85);padding:8px 0;border-bottom:1px solid rgba(255,255,255,.15);display:flex;gap:8px;"><span style="flex-shrink:0;">&#8594;</span>Process &amp; ops overhaul</li>
+            <li style="font-size:13px;color:rgba(255,255,255,.85);padding:8px 0;border-bottom:1px solid rgba(255,255,255,.15);display:flex;gap:8px;"><span style="flex-shrink:0;">&#8594;</span>Team leadership coaching</li>
+            <li style="font-size:13px;color:rgba(255,255,255,.85);padding:8px 0;border-bottom:1px solid rgba(255,255,255,.15);display:flex;gap:8px;"><span style="flex-shrink:0;">&#8594;</span>Vendor &amp; partner introductions</li>
+            <li style="font-size:13px;color:rgba(255,255,255,.85);padding:8px 0;display:flex;gap:8px;"><span style="flex-shrink:0;">&#8594;</span>P&amp;L review and guidance</li>
+          </ul>
+        </div>
+        <div style="background:#0d1e35;padding:2.5rem 2rem;">
+          <div style="font-size:9px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:.75rem;">Enterprise</div>
+          <div style="font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:#fff;margin-bottom:1.5rem;line-height:1.2;">Full<br>Partnership</div>
+          <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;">
+            <li style="font-size:13px;color:rgba(255,255,255,.55);padding:8px 0;border-bottom:1px solid rgba(255,255,255,.06);display:flex;gap:8px;"><span style="color:#C8102E;flex-shrink:0;">&#8594;</span>All advisory engagement features</li>
+            <li style="font-size:13px;color:rgba(255,255,255,.55);padding:8px 0;border-bottom:1px solid rgba(255,255,255,.06);display:flex;gap:8px;"><span style="color:#C8102E;flex-shrink:0;">&#8594;</span>Capital &amp; resource access</li>
+            <li style="font-size:13px;color:rgba(255,255,255,.55);padding:8px 0;border-bottom:1px solid rgba(255,255,255,.06);display:flex;gap:8px;"><span style="color:#C8102E;flex-shrink:0;">&#8594;</span>Revenue-share options available</li>
+            <li style="font-size:13px;color:rgba(255,255,255,.55);padding:8px 0;border-bottom:1px solid rgba(255,255,255,.06);display:flex;gap:8px;"><span style="color:#C8102E;flex-shrink:0;">&#8594;</span>CLG network integration</li>
+            <li style="font-size:13px;color:rgba(255,255,255,.55);padding:8px 0;display:flex;gap:8px;"><span style="color:#C8102E;flex-shrink:0;">&#8594;</span>Exit strategy planning</li>
+          </ul>
+        </div>
       </div>
-      <div class="proc-steps">
-        <div class="ps reveal"><div class="ps-n">01</div><div class="ps-ico">💬</div><h4>Discover</h4><p>We start by deeply understanding your business — your market, your model, your team, and the gap between where you are and where you want to go.</p><div class="ps-arrow">→</div></div>
-        <div class="ps reveal"><div class="ps-n">02</div><div class="ps-ico">🔎</div><h4>Diagnose</h4><p>We audit your operations, revenue model, and market position — identifying the specific constraints that are limiting growth and the opportunities being left on the table.</p><div class="ps-arrow">→</div></div>
-        <div class="ps reveal"><div class="ps-n">03</div><div class="ps-ico">✅</div><h4>Build</h4><p>We design the strategy, rebuild the systems, and put the right infrastructure in place — aligned to your goals with clear accountability at every step.</p><div class="ps-arrow">→</div></div>
-        <div class="ps reveal"><div class="ps-n">04</div><div class="ps-ico">📈</div><h4>Execute &amp; Scale</h4><p>We stay in the work — executing alongside your team, measuring what matters, and continuously pushing toward deeper market impact and sustainable growth.</p></div>
+      <div style="text-align:center;margin-top:3rem;">
+        <button class="btn-red" onclick="showPage('contact')">Start the Conversation &#8594;</button>
       </div>
     </div>
-  </section>
-
-  <div style="background:var(--cream);padding:72px 60px;text-align:center;">
-    <h3 style="font-family:'Playfair Display',serif;font-size:30px;font-weight:700;color:var(--navy);margin-bottom:12px;">Ready to Start Building?</h3>
-    <p style="font-size:15px;color:var(--text-mid);margin-bottom:26px;max-width:460px;margin-left:auto;margin-right:auto;">Tell us about your asset — property, enterprise, or space — and let's have an honest conversation about what it could look like with the right operator behind it.</p>
-    <a onclick="showPage('contact')" class="btn-red">Schedule a Free Consultation</a>
   </div>
+
+  <script>
+    function toggleSvc(header) {
+      var body = header.nextElementSibling;
+      var isOpen = header.classList.contains('open');
+      // Close all open ones first
+      document.querySelectorAll('.svc-category-header.open').forEach(function(h) {
+        h.classList.remove('open');
+        h.nextElementSibling.classList.remove('open');
+      });
+      // If it wasn't open, open it now
+      if (!isOpen) {
+        header.classList.add('open');
+        body.classList.add('open');
+      }
+    }
+  </script>
+
 </div><!-- end page-services -->
 
 <!-- ══════════════════════════════════════════
@@ -924,7 +1151,7 @@ footer{background:#07101f;padding:52px 60px 34px;}
       <div class="c-info-list">
         
         
-        <div class="c-row"><div class="c-ico">📞</div><div><div class="c-lbl">Phone</div><div class="c-val">(864) 426-0228</div></div></div>
+        <div class="c-row"><div class="c-ico">📞</div><div><div class="c-lbl">Phone</div><div class="c-val"><a href="tel:8644260228" style="color:inherit;text-decoration:none;">(864) 426-0228</a></div></div></div>
         <div class="c-row"><div class="c-ico">✉️</div><div><div class="c-lbl">Email</div><div class="c-val"><a href="mailto:contact@carolinalegacygroupsc.com" style="color:var(--navy-dark);text-decoration:none;" onmouseover="this.style.color='var(--red)'" onmouseout="this.style.color='var(--navy-dark)'">contact@carolinalegacygroupsc.com</a></div></div></div>
       </div>
       <div class="hours">
